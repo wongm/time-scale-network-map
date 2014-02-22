@@ -69,7 +69,16 @@ class XmlElement extends SimpleXMLElement
     public function setAttribute( $attribute, $value, $namespace = null )
     {
         $this->removeAttribute( $attribute );
-        $this->addAttribute( $attribute, (string)$value, $namespace );
+        
+        //hack for PHP 5.1.8
+        if (is_object($value))
+        {
+			$this->addAttribute( $attribute, $value->__toString(), $namespace );
+    	}
+    	else
+    	{
+	    	$this->addAttribute( $attribute, (string)$value, $namespace );
+    	}
     }
 
     /**
