@@ -1,11 +1,11 @@
 <?php
 
 $radius = 500;
-$totalLines = 5;
+$totalLines = 20;
 
 $degreesDifference = (360 / $totalLines);
 $origin = $radius + 10;
-$width = ($radius * 2) + 10;
+$width = ($radius * 2) + 20;
 
 require_once "svglib/svglib.php";
 $svg = SVGDocument::getInstance( ); #start a svgDocument using default (minimal) svg document
@@ -22,7 +22,7 @@ for ($currentLine = 0; $currentLine < $totalLines; $currentLine++)
 	$radians = deg2rad(($currentLine * $degreesDifference) - 90);
 	$xOuter = ($radius * cos($radians)) + $origin;
 	$yOuter = ($radius * sin($radians)) + $origin;
-	$style->setStrokeWidth( $currentLine * 3 );
+	$style->setStrokeWidth( $currentLine * 1 );
 	
 	$line = SVGLine::getInstance( $origin, $origin, $xOuter, $yOuter, 'line' . $currentLine, $style );
 	$svg->addShape( $line );
