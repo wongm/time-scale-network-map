@@ -9,8 +9,15 @@ $style->setFill( '#f2f2f2' );
 $style->setStroke( '#e1a100' );
 $style->setStrokeWidth( 2 );
 
-$line = SVGLine::getInstance( 5, 5, 200, 200, 'line1', $style );
-$svg->addShape( $line );
+$width = 1000;
+$lines = 8;
+
+for ($i = 0; $i < $lines; $i++)
+{
+	$line = SVGLine::getInstance( 5 + ($i * 20), 5, 200 + ($i * 20), 200, 'line' . $i, $style );
+	$svg->addShape( $line );
+}
+
 $svg->output(); #output to browser, with header
 
 ?>
