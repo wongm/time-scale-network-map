@@ -1,6 +1,7 @@
 <?php
 
 $radius = 500;
+$degreesOffset = 90;
 
 require_once('data.php');
 
@@ -64,7 +65,7 @@ foreach ($lines as $line)
 	$scalingFactor = ($endTime / $maximumTime);
 	$lineLength = ($radius * $scalingFactor);
 	
-	$radians = deg2rad(($currentIndex * $degreesDifference) - 90);
+	$radians = deg2rad(($currentIndex * $degreesDifference) - $degreesOffset);
 	$xOuter = ($lineLength * cos($radians)) + $origin;
 	$yOuter = ($lineLength * sin($radians)) + $origin;
 	$style->setStrokeWidth( $currentIndex * 1 );
