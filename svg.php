@@ -58,7 +58,7 @@ foreach ($lines as $line)
 
 $currentIndex = 0;
 
-// draw everything
+// draw all the lines
 foreach ($lines as $line)
 {
 	// determine scaling and direction of this line
@@ -81,20 +81,39 @@ foreach ($lines as $line)
 	foreach(array_keys($line) as $stationName)
 	{
 		$stationScaling = ($line[$stationName] / $lineEndTime);
-		
 		$stationDistance = ($lineLength * $stationScaling);
+		
 		$xStation = ($stationDistance * cos($radians)) + $origin;
 		$yStation = ($stationDistance * sin($radians)) + $origin;
 		$stationShape = SVGCircle::getInstance( $xStation, $yStation, $stationRadius, 'station' . $currentIndex . $stationIndex, $style );
 		$svg->addShape( $stationShape );
 		
-		$stationLabel = SVGText::getInstance( $xStation, $yStation, 'stationLabel' . $currentIndex . $stationIndex, $stationName, $style );
+		$stationLabelText = "$stationName ($line[$stationName])";
+		
+		$stationLabel = SVGText::getInstance( $xStation, $yStation, 'stationLabel' . $currentIndex . $stationIndex, $stationLabelText, $style );
 		$svg->addShape( $stationLabel );
 		
 		$stationIndex++;
 	}
 	
 	$currentIndex++;
+}
+
+$radiusMinutes = 10;
+$radiusStyle = new SVGStyle();
+$radiusStyle->setStroke( 'grey' );
+$radiusStyle->setFill( 'none' );
+$radiusStyle->setStrokeWidth( 1 );
+
+// finally, add some circles
+while ($radiusMinutes < $maximumTime)
+{
+	$radiusScaling = ($radiusMinutes / $maximumTime);
+	$radiusDistance = ($radius * $radiusScaling);
+	
+	$radiusCircle = SVGCircle::getInstance( $origin, $origin, $radiusDistance, 'radius' . $currentRadius, $radiusStyle );
+	$svg->addShape( $radiusCircle );
+	$radiusMinutes += 10;
 }
 
 $svg->output(); #output to browser, with header
