@@ -1,7 +1,7 @@
 <?php
 
-$radius = 500;
-$degreesOffset = 90;
+$radius = 1500;
+$degreesOffset = 45;
 $stationRadius = 3;
 
 require_once('data.php');
@@ -70,10 +70,11 @@ foreach ($lines as $line)
 	// determine end of the line
 	$xOuter = ($lineLength * cos($radians)) + $origin;
 	$yOuter = ($lineLength * sin($radians)) + $origin;
-	$style->setStrokeWidth( $currentIndex * 1 );
+	$style->setStrokeWidth( 1 );
 	
 	$lineShape = SVGLine::getInstance( $origin, $origin, $xOuter, $yOuter, 'line' . $currentIndex, $style );
 	$svg->addShape( $lineShape );
+	
 	
 	$stationIndex = 0;
 	
